@@ -3,4 +3,5 @@ const userController = require('../controllers');
 module.exports = express
     .Router()
     .get('/',userController.getAllUsers)
-    .get('/:id',userController.getUserById);
+    .get('/:id',userController.getUserById)
+    .post('/add',userController.createUser);

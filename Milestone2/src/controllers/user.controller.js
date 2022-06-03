@@ -26,4 +26,17 @@ const getUserById = (req,resp) => {
         });
     }
 };
-module.exports = {getAllUsers,getUserById};
+const createUser = (req,resp) => {
+    try {
+        resp.status(200).send({
+            success:true,
+            data: userService.create(req.body)
+        });
+    } catch (error) {
+        resp.status(400).send({
+            success:false,
+            message:error.message
+        });
+    }
+};
+module.exports = {getAllUsers,getUserById,createUser};

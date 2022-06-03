@@ -1,5 +1,8 @@
 const fs = require('fs');
 const getUsers = () => {
-    return fs.readFileSync(process.cwd()+'/src/mock-data/users.json','utf8');
+    return fs.readFileSync(process.env.PWD+'/src/mock-data/users.json','utf8');
 }
-module.exports = {getUsers};
+const save = (userData) => {
+    return fs.appendFileSync(process.env.PWD+'/src/mock-data/users.json', userData);
+}
+module.exports = {getUsers,save};
