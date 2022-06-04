@@ -39,4 +39,17 @@ const createUser = (req,resp) => {
         });
     }
 };
-module.exports = {getAllUsers,getUserById,createUser};
+const deleteUser = (req,resp) => {
+    try {
+        resp.status(200).send({
+            success:true,
+            data: userService.deleteUser(req.params.id)
+        });
+    } catch (error) {
+        resp.status(400).send({
+            success:false,
+            message:error.message
+        });
+    }
+};
+module.exports = {getAllUsers,getUserById,createUser,deleteUser};

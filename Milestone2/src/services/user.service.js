@@ -13,18 +13,29 @@ const create = (userData) => {
     var users = allUsers();
     if (userData.empid) {
         var userExists = getUserDataById(userData.empid);
-        if (userExists) {
-            return false;
+        console.log(userExists.length);
+        if (userExists.length > 0) {
+            throw { message : "data already exists." };
         } else {
-            var userArr = {
+            let userArr = {
                 "empid": userData.empid,
                 "first_name": userData.first_name,
                 "last_name": userData.last_name,
                 "email": userData.email
             }
-            return userModel.save(userArr);
+            users.push(userArr);
+            return userModel.save(users);
         }
     }
-    // return users.filter((users) => { return users.empid == userId })
 }
-module.exports = {allUsers,usersCount,getUserDataById,create};
+const deleteUser = (id) => {
+    let users = allUsers();
+    let userExists = getUserDataById(id);
+    if (userExists.length > 0) {
+        let usersArr = users.filter((users) => { return users.empid != id });
+        userModel.save(usersArr);
+    } else {
+        throw { message : "data not found." };
+    }
+}
+module.exports = {allUsers,usersCount,getUserDataById,create,deleteUser};
