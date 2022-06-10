@@ -1,4 +1,4 @@
-const userModel = require('../models/user.model');
+import { userModel } from "../models";
 const allUsers = () => {
     return JSON.parse(userModel.getUsers());
 }
@@ -38,4 +38,4 @@ const deleteUser = (id) => {
         throw { message : "data not found." };
     }
 }
-module.exports = {allUsers,usersCount,getUserDataById,create,deleteUser};
+export default {allUsers,usersCount,getUserDataById,create,deleteUser};

@@ -1,2 +1,2 @@
-const userController = require('./user.controller');
-module.exports = userController;
+export {default as userController} from './user.controller';
+export {default as productController} from './product.controller'

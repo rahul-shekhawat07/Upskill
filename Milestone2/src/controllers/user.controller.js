@@ -1,5 +1,6 @@
-const userService = require('../services/user.service');
-const getAllUsers = (req,resp) => {
+import { userService } from "../services";
+const getAllUsers = async (req,resp) => {
+console.log(userService);
     try {
         resp.status(200).send({
             success:true,
@@ -52,4 +53,4 @@ const deleteUser = (req,resp) => {
         });
     }
 };
-module.exports = {getAllUsers,getUserById,createUser,deleteUser};
+export default {getAllUsers,getUserById,createUser,deleteUser};
