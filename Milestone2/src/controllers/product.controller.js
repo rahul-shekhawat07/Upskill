@@ -12,4 +12,17 @@ const getAllproducts = async (req,resp) => {
         });
     }
 };
-export default {getAllproducts};
+const addproduct = async (req,resp) => {
+    try {
+        resp.status(200).send({
+            success:true,
+            data: await productService.addProduct(req.body),
+        });
+    } catch (error) {
+        resp.status(400).send({
+            success:false,
+            message:error.message
+        });
+    }
+};
+export default {getAllproducts,addproduct};

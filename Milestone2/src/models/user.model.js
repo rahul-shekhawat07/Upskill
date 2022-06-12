@@ -1,11 +1,20 @@
-import fs from 'fs';
-const getUsers = () => {
-    return fs.readFileSync(process.cwd()+'/src/mock-data/users.json','utf8');
-}
-const save = (usersData) => {
-    var usersData = JSON.stringify(usersData);
-    fs.writeFile(process.cwd()+'/src/mock-data/users.json', usersData, err => {
-        if(err) throw err;
-    });
-}
-export default {getUsers,save};
+'use strict';
+import { Model } from 'sequelize';
+export default (sequelize, DataTypes) => {
+	class User extends Model {}
+	User.init(
+		{
+			productId: {type:DataTypes.INTEGER,autoIncrement:true,allowNull:false,unique:true,primaryKey:true},
+			productName: {type:DataTypes.STRING,allowNull:false},
+			productSlug: { type: DataTypes.STRING, unique: true },
+			categoryIds: { type: DataTypes.STRING, allowNull:true },
+			isActive: { type: DataTypes.BOOLEAN, defaultValue: true }
+		},
+		{
+			sequelize,
+			modelName: 'User',
+            timestamps: true
+		},
+	);
+	return User;
+};

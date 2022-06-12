@@ -7,11 +7,11 @@ const PORT = process.env.PORT || 5000;
 const BASE_API_URL = `http://${HOST}:${PORT}${'/api/v1'}`;
 
 server.use(json());
-server.use('/api/v1/users',routes.userRoute);
-server.use('/api/v1/products',routes.productRoute);
+server.use('/api/v1/users', routes.userRoute);
+server.use('/api/v1/products', routes.productRoute);
 
 
-server.listen(PORT,()=>{
+server.listen(PORT, () => {
     console.info('API Running at');
     console.info(`${'localhost:'} ${BASE_API_URL}`);
     console.info(`${'Users:'} ${`${BASE_API_URL}/users`}`);
