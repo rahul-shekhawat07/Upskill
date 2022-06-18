@@ -1,5 +1,6 @@
 import express, { json, urlencoded } from 'express';
 import routes from './src/routes';
+// import { errorHandler } from './src/middlewares';
 const server = express();
 require('dotenv').config({ path: 'src/config/.env' });
 const HOST = process.env.HOST || 'localhost';
@@ -9,6 +10,22 @@ const BASE_API_URL = `http://${HOST}:${PORT}${'/api/v1'}`;
 server.use(json());
 server.use('/api/v1/users', routes.userRoute);
 server.use('/api/v1/products', routes.productRoute);
+// server.use(errorHandler);
+
+server.all('*', (req, res, next) => {
+    const err = new Error(`Requested URL ${req.path} not Found!`);
+    err.statusCode = 404;
+    next(err);
+});
+
+server.use((err, req, res, next) => {
+    const statusCode = err.statusCode || 500;
+    res.status(statusCode).json({
+        error: true,
+        message: err.message
+    });
+});
+
 
 
 server.listen(PORT, () => {

@@ -1,28 +1,33 @@
 import { productService } from "../services";
-const getAllproducts = async (req,resp) => {
+
+const getProducts = async (req, resp, next) => {
     try {
         resp.status(200).send({
-            success:true,
-            data: await productService.allProducts(),
+            success: true,
+            data: await productService.getProducts(req.params.id),
         });
     } catch (error) {
-        resp.status(400).send({
-            success:false,
-            message:error.message
-        });
+        next(error);
     }
 };
-const addproduct = async (req,resp) => {
+const saveProducts = async (req, resp, next) => {
     try {
         resp.status(200).send({
-            success:true,
-            data: await productService.addProduct(req.body),
+            success: true,
+            data: await productService.saveProduct(req.body, req.params.id),
         });
     } catch (error) {
-        resp.status(400).send({
-            success:false,
-            message:error.message
-        });
+        next(error);
     }
 };
-export default {getAllproducts,addproduct};
+const deleteProduct = async (req, resp, next) => {
+    try {
+        resp.status(200).send({
+            success: true,
+            data: await productService.deleteProduct(req.params.id),
+        });
+    } catch (error) {
+        next(error);
+    }
+};
+export default { getProducts, saveProducts, deleteProduct };

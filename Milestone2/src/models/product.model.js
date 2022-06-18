@@ -19,7 +19,7 @@
 //     return Products;
 // };
 import Sequelize  from "sequelize";
-import {sequelize} from './index';
+import sequelize from '../config/dbConnection';
 
 const Products = sequelize.define('products',{
             productId: { 
@@ -37,13 +37,14 @@ const Products = sequelize.define('products',{
                 type: Sequelize.STRING, 
                 unique: true 
             },
-            categoryIds: { 
-                type: Sequelize.STRING, 
-                allowNull: true 
+            categoryId: { 
+                type: Sequelize.INTEGER, 
+                allowNull: false 
             },
             isActive: { 
                 type: Sequelize.BOOLEAN, 
                 defaultValue: true 
             }
 });
+sequelize.sync();
 export default Products;
