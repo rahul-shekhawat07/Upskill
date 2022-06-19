@@ -18,38 +18,33 @@
 //     );
 //     return Products;
 // };
-// import Sequelize  from "sequelize";
+// import Sequelize from "sequelize";
 import db from '../config/dbConnection';
-import ProductsCategory from './productCategory.model';
-
-const Products = db.sequelize.define('products', {
-    productId: {
+import Products from './product.model';
+const ProductsCategory = db.sequelize.define('product_category', {
+    categoryId: {
         type: db.Sequelize.INTEGER,
         autoIncrement: true,
         allowNull: false,
         unique: true,
         primaryKey: true
     },
-    productName: {
+    categoryName: {
         type: db.Sequelize.STRING,
         allowNull: false
     },
-    productDesc: {
+    categoryDesc: {
         type: db.Sequelize.STRING,
         allowNull: true
     },
-    productSlug: {
+    categorySlug: {
         type: db.Sequelize.STRING,
         unique: true
-    },
-    categoryId: {
-        type: db.Sequelize.INTEGER,
-        allowNull: false
     },
     isActive: {
         type: db.Sequelize.BOOLEAN,
         defaultValue: true
     }
 });
-Products.sync();
-export default Products;
+ProductsCategory.sync();
+export default ProductsCategory;

@@ -3,7 +3,7 @@ import { productController } from '../controllers';
 import { productsMiddleware } from '../middlewares';
 export default express
     .Router()
-    .get('/',productController.getProducts)
+    .get('/',productsMiddleware.verifyQueryParams,productController.getProducts)
     .get('/edit/:id',productController.getProducts)
     .post('/add',productsMiddleware.addProductValidation,productController.saveProducts)
     .put('/edit/:id',productsMiddleware.addProductValidation,productController.saveProducts)

@@ -1,6 +1,7 @@
 import express, { json, urlencoded } from 'express';
+import cors from 'cors';
 import routes from './src/routes';
-// import { errorHandler } from './src/middlewares';
+
 const server = express();
 require('dotenv').config({ path: 'src/config/.env' });
 const HOST = process.env.HOST || 'localhost';
@@ -8,9 +9,11 @@ const PORT = process.env.PORT || 5000;
 const BASE_API_URL = `http://${HOST}:${PORT}${'/api/v1'}`;
 
 server.use(json());
+server.use(urlencoded({ extended: true }));
+server.use(cors({ origin: true, credentials: true }));
 server.use('/api/v1/users', routes.userRoute);
 server.use('/api/v1/products', routes.productRoute);
-// server.use(errorHandler);
+server.use('/api/v1/productcategories', routes.productCategoryRoute);
 
 server.all('*', (req, res, next) => {
     const err = new Error(`Requested URL ${req.path} not Found!`);
@@ -33,4 +36,5 @@ server.listen(PORT, () => {
     console.info(`${'localhost:'} ${BASE_API_URL}`);
     console.info(`${'Users:'} ${`${BASE_API_URL}/users`}`);
     console.info(`${'Products:'} ${`${BASE_API_URL}/products`}`);
+    console.info(`${'ProductCategories:'} ${`${BASE_API_URL}/productcategories`}`);
 });

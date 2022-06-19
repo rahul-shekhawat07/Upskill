@@ -1,6 +1,13 @@
-// export {default as userModel} from './user.model';
-// export {default as sequelize} from '../config/dbConnection';
+import Products from './product.model';
+import ProductsCategory from './productCategory.model';
+
+ProductsCategory.hasMany(Products, {
+    foreignKey: "categoryId",
+    as: "productDetails"
+});
+Products.belongsTo(ProductsCategory, {
+    foreignKey: "categoryId",
+    as: 'categoryDetails'
+});
 export {default as productModel} from './product.model';
-// import db from '../config/dbConnection';
-// db.connect();
-// export default db;
+export {default as productCategoryModel} from './productCategory.model';

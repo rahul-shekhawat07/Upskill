@@ -1,3 +1,4 @@
 import userRoute from '../routes/user.route';
 import productRoute from '../routes/product.route';
-export default {userRoute,productRoute}
+import productCategoryRoute from './productCategory.route';
+export default {userRoute,productRoute,productCategoryRoute}
